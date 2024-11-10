@@ -1,6 +1,7 @@
 package com.mongoDB.aula_mongoDB.resource;
 
 import com.mongoDB.aula_mongoDB.domain.entities.User;
+import com.mongoDB.aula_mongoDB.dto.UserDTO;
 import com.mongoDB.aula_mongoDB.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,10 @@ public class UserResource {
     private UserServices userServices;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
+    public ResponseEntity<List<UserDTO>> findAll(){
         List<User> list = userServices.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> userDTOList = list.stream().map(u -> new UserDTO(u)).toList();
+        return ResponseEntity.ok().body(userDTOList);
     }
 
 }
