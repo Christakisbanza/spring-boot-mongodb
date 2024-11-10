@@ -1,6 +1,7 @@
 package com.mongoDB.aula_mongoDB.services;
 
 import com.mongoDB.aula_mongoDB.domain.entities.User;
+import com.mongoDB.aula_mongoDB.dto.UserDTO;
 import com.mongoDB.aula_mongoDB.repository.UserRepository;
 import com.mongoDB.aula_mongoDB.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,13 @@ public class UserServices {
             throw new ObjectNotFoundException("Object not found !!");
         }
         return user.get();
+    }
+
+    public User insert(User user){
+        return userRepository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDTO){
+        return new User(userDTO.getId(), userDTO.getName(),userDTO.getEmail());
     }
 }
