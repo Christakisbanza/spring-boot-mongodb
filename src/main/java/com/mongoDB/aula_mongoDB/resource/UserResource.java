@@ -1,5 +1,6 @@
 package com.mongoDB.aula_mongoDB.resource;
 
+import com.mongoDB.aula_mongoDB.domain.entities.Post;
 import com.mongoDB.aula_mongoDB.domain.entities.User;
 import com.mongoDB.aula_mongoDB.dto.UserDTO;
 import com.mongoDB.aula_mongoDB.services.UserServices;
@@ -53,6 +54,12 @@ public class UserResource {
         user.setId(id);
         userServices.update(user);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User user = userServices.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 
 }
