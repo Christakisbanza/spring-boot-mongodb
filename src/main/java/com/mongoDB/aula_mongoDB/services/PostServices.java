@@ -1,14 +1,12 @@
 package com.mongoDB.aula_mongoDB.services;
 
 import com.mongoDB.aula_mongoDB.domain.entities.Post;
-import com.mongoDB.aula_mongoDB.domain.entities.User;
-import com.mongoDB.aula_mongoDB.dto.UserDTO;
 import com.mongoDB.aula_mongoDB.repository.PostRepository;
-import com.mongoDB.aula_mongoDB.repository.UserRepository;
 import com.mongoDB.aula_mongoDB.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +27,11 @@ public class PostServices {
 
     public List<Post> findByTitle(String txt){
         return postRepository.searchTitle(txt);
+    }
+
+    public List<Post> fullSearch(String txt, Date minDate, Date maxDate){
+        maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+        return postRepository.fullSearch(txt,minDate,maxDate);
     }
 
 }
