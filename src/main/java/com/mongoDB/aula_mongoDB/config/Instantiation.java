@@ -2,6 +2,7 @@ package com.mongoDB.aula_mongoDB.config;
 
 import com.mongoDB.aula_mongoDB.domain.entities.Post;
 import com.mongoDB.aula_mongoDB.domain.entities.User;
+import com.mongoDB.aula_mongoDB.dto.AuthorDTO;
 import com.mongoDB.aula_mongoDB.repository.PostRepository;
 import com.mongoDB.aula_mongoDB.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,11 @@ public class Instantiation implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post = new Post(null,simpleDateFormat.parse("21/03/2018"),"Partiu Viagem", "Vou viajar para são Paulo", maria);
-        Post post2 = new Post(null,simpleDateFormat.parse("23/03/2018"),"Bom dia", "Acordei feliz hoje !!", maria);
-
         userRepository.saveAll(Arrays.asList(maria,alex,bob));
+
+        Post post = new Post(null,simpleDateFormat.parse("21/03/2018"),"Partiu Viagem", "Vou viajar para são Paulo", new AuthorDTO(maria));
+        Post post2 = new Post(null,simpleDateFormat.parse("23/03/2018"),"Bom dia", "Acordei feliz hoje !!", new AuthorDTO(maria));
+        
         postRepository.saveAll(Arrays.asList(post,post2));
     }
 
